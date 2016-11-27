@@ -21,7 +21,9 @@ module.exports = (manager) => {
     const userIDs = Object.keys(manager.users)
     if (userIDs.length === 0) return
     const payload = serialize(record, types.USERS, attributes, relationships)
-    userIDs.forEach(userID => manager.users[userID].send(payload))
+    userIDs.forEach(userID => {
+      if (record.id !== userID) manager.users[userID].send(payload)
+    })
   }
 
   /**
