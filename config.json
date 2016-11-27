@@ -1,0 +1,11 @@
+{
+  "port": "8282",
+  "instances": 4,
+  "db": {
+    "url": "mongodb://localhost:27017/notify"
+  },
+  "session": {
+    "name": "notifyToken",
+    "maxAge": 2628000
+  }
+}

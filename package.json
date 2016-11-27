@@ -1,0 +1,16 @@
+{
+  "name": "notify-ws",
+  "version": "0.1.0",
+  "description": "WebSocket server for Notify",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca Tabone <taboneluca3@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "ipc-emitter": "0.2.1",
+    "minimist": "1.2.0",
+    "ws": "1.1.1"
+  }
+}
