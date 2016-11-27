@@ -20,7 +20,9 @@ module.exports = (manager) => {
     const users = getAffectedUsers(record)
     if (users.length === 0) return
     const payload = serialize(record, types.MESSAGES, attributes, relationships)
-    users.forEach(user => user.send(payload))
+    users.forEach(user => {
+      if (user.upgradeReq.notify.user.id !== record.user) user.send(payload)
+    })
   }
 
   /**
