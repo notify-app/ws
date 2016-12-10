@@ -11,6 +11,8 @@
   "dependencies": {
     "ipc-emitter": "0.2.1",
     "minimist": "1.2.0",
-    "ws": "1.1.1"
+    "ws": "1.1.1",
+    "notify-store": "0.1.0",
+    "notify-utils": "0.1.0"
   }
 }
