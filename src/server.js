@@ -36,11 +36,26 @@ manager.init()
  */
 function verifyClient (info, cb) {
   return utils.getCookieValue(info.req.headers.cookie, config.session.name)
-    .then((token) => {
-      return utils.getUserByToken(notifyStore, token, config.session.maxAge)
+    .then((tokenValue) => {
+      return notifyStore.store.find(notifyStore.types.TOKENS, undefined, {
+        match: {
+          token: tokenValue
+        }
+      })
     })
     .then(({payload}) => {
+      if (payload.count === 0) return Promise.reject()
+      return payload.records[0]
+    })
+    .then(token => {
+      return Promise.all([
+        token,
+        utils.getUserByToken(notifyStore, token, config.session.maxAge)
+      ])
+    })
+    .then(([token, {payload}]) => {
       info.req.notify = {
+        token,
         user: payload.records[0]
       }
       cb(true)
