@@ -4,7 +4,7 @@ const serialize = require('../libs/serialize')
 const broadcast = require('../libs/broadcast')
 const types = require('../libs/types')
 
-const attributes = ['name', 'image']
+const attributes = ['name', 'image', 'private']
 const relationships = [
   { key: 'users', type: types.USERS },
   { key: 'messages', type: types.MESSAGES }
