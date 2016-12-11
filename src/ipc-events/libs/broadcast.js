@@ -25,5 +25,7 @@ module.exports = (user, payload, {request}) => {
   // of the change.
   const userToken = user.upgradeReq.notify.token
   return utils.getCookieValue(request.meta.headers.cookie, config.session.name)
-    .then(tokenValue => if (tokenValue !== userToken.token) user.send(payload))
+    .then(tokenValue => {
+      if (tokenValue !== userToken.token) user.send(payload)
+    })
 }
