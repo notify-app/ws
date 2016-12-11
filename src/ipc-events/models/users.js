@@ -1,6 +1,7 @@
 'use strict'
 
 const serialize = require('../libs/serialize')
+const broadcast = require('../libs/broadcast')
 const types = require('../libs/types')
 
 const attributes = ['username', 'image']
