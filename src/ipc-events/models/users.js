@@ -16,13 +16,14 @@ module.exports = (manager) => {
    * logged in users should be notified.
    * @param  {Object} record Record created/updated.
    */
-  return (record) => {
+  return (record, context) => {
     syncManager(record)
     const userIDs = Object.keys(manager.users)
     if (userIDs.length === 0) return
     const payload = serialize(record, types.USERS, attributes, relationships)
     userIDs.forEach(userID => {
-      if (record.id !== userID) manager.users[userID].send(payload)
+      const user = manager.users[userID]
+      broadcast(user, payload, context)
     })
   }
 

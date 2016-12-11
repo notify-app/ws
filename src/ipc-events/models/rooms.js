@@ -15,12 +15,12 @@ module.exports = (manager) => {
    * members of the room created/modified should be notified.
    * @param  {Object} record Record created/updated.
    */
-  return (record) => {
+  return (record, context) => {
     syncManager(record)
     const users = getAffectedUsers(record)
     if (users.length === 0) return
     const payload = serialize(record, types.ROOMS, attributes, relationships)
-    users.forEach(user => user.send(payload))
+    users.forEach(user => broadcast(user, payload, context))
   }
 
   /**
