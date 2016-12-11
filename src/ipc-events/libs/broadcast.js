@@ -18,7 +18,7 @@ module.exports = (user, payload, {request}) => {
   // If request doesn't have info which we can use to retrieve the author of the
   // change (i.e. using access token) send the payload.
   if (request.meta === undefined || request.meta.headers === undefined) {
-    user.send(payload)
+    return user.send(payload)
   }
 
   // If there is info the user should only be notified if he is not the author
