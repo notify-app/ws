@@ -48,9 +48,15 @@ function verifyClient (info, cb) {
       return payload.records[0]
     })
     .then(token => {
+      const opts = {
+        notifyStore,
+        origin: info.origin,
+        maxAge: config.session.maxAge
+      }
+
       return Promise.all([
         token,
-        utils.getUserByToken(notifyStore, token, config.session.maxAge)
+        utils.getUserByToken(token, opts)
       ])
     })
     .then(([token, {payload}]) => {
