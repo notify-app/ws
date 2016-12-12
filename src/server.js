@@ -35,7 +35,7 @@ manager.init()
  * @return {Promise}       Resolved once the request has been inspected.
  */
 function verifyClient (info, cb) {
-  return utils.getCookieValue(info.req.headers.cookie, config.session.name)
+  return utils.getCookieValue(info.req.headers.cookie, config.session.cookie)
     .then((tokenValue) => {
       return notifyStore.store.find(notifyStore.types.TOKENS, undefined, {
         match: {
