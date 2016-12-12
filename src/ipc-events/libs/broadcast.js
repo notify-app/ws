@@ -35,7 +35,7 @@ module.exports = (user, payload, {request}) => {
 
       // Else before sending the payload make sure that he has a valid token.
       // If he doesn't close his socket connection and remove the token from db.
-      return utils.validateToken(userToken, config.session.maxAge)
+      return utils.validateToken(userToken, { maxAge: config.session.maxAge })
         .then(() => user.send(payload))
         .catch(token => {
           return notifyStore.store.delete(notifyStore.types.TOKENS, token.id)
