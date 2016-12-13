@@ -16,6 +16,8 @@ if (cluster.isMaster) {
     master.ack(instance.process)
   }
 } else {
+  processArgs()
+
   worker.emit('logs:info', 'ws', `server deployed`, {
     id: cluster.worker.id,
     pid: process.pid
