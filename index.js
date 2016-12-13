@@ -11,7 +11,7 @@ if (cluster.isMaster) {
   processArgs()
 
   worker.emit('logs:info', 'ws', 'deploying servers')
-  for (let i = 0; i < config.instances; i ++) {
+  for (let i = 0; i < config.instances; i++) {
     const instance = cluster.fork()
     master.ack(instance.process)
   }

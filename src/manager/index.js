@@ -78,7 +78,7 @@ module.exports = {
    */
   addUserToRoom (roomID, socket) {
     const room = this.rooms[roomID]
-    
+
     if (room === undefined) {
       this.rooms[roomID] = [socket]
     } else if (!~room.indexOf(socket)) {

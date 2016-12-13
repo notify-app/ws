@@ -12,8 +12,8 @@
 module.exports = (record, type, attributes = [], relationships = []) => {
   const payload = {
     data: {
-    id: record.id,
-    type: type,
+      id: record.id,
+      type: type,
       attributes: {},
       relationships: {}
     }
