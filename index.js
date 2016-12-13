@@ -29,6 +29,7 @@ function processArgs () {
 
   if ('dbURL' in argv) config.db.url = argv.dbURL
   if ('sessionCookie' in argv) config.session.cookie = argv.sessionCookie
+  if ('sessionHeader' in argv) config.session.header = argv.sessionHeader
   if ('sessionMaxAge' in argv) config.session.maxAge = argv.sessionMaxAge
   if ('port' in argv) config.port = argv.port
   if ('instances' in argv) config.instances = argv.instances

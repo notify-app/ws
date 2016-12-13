@@ -27,8 +27,7 @@ module.exports = (user, payload, {request}) => {
   //    1. The user recieving the payload is not the author if the change.
   //    2. The token of the user recieving the payload is still valid.
   const userToken = user.upgradeReq.notify.token
-  const cookie = request.meta.headers.cookie
-  return utils.getCookieValue(cookie, config.session.cookie)
+  return utils.getTokenFromRequest(request.meta.headers, config.session)
     .then(tokenValue => {
       // If the user recieiving the payload is the author of the change, do
       // nothing.
