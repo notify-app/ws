@@ -1,8 +1,8 @@
 'use strict'
 
 const {Server} = require('ws')
-const {worker} = require('ipc-emitter')
 
+const logger = require('./logger')
 const config = require('../config')
 const manager = require('./manager')
 const createIPCListeners = require('./ipc-events')
@@ -22,6 +22,6 @@ manager.init()
     // Create IPC Listeners.
     createIPCListeners(manager)
 
-    worker.emit('logs:info', 'ws', `listening on port ${config.port}`)
+    logger.info(`listening on port ${config.port}`)
   })
-  .catch(err => worker.emit('logs:error', 'ws', err))
+  .catch(logger.error)

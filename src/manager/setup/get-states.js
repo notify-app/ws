@@ -1,6 +1,6 @@
 'use strict'
 
-const {worker} = require('ipc-emitter')
+const logger = require('../../logger')
 const notifyStore = require('../../store')
 
 const stateMap = {
@@ -15,7 +15,7 @@ const stateMap = {
  * @return {Promise}       Resolved with the possible states.
  */
 module.exports = (master) => {
-  worker.emit('logs:info', 'ws', `loading user states`)
+  logger.info('loading user states')
 
   return notifyStore.store.find(notifyStore.types.STATES)
     .then(({payload}) => {

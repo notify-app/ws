@@ -1,8 +1,8 @@
 'use strict'
 
-const {worker} = require('ipc-emitter')
 const notifyStore = require('../store')
 const setup = require('./setup')
+const logger = require('../logger')
 
 module.exports = {
   /**
@@ -31,7 +31,7 @@ module.exports = {
    * @return {Promise} Resolved once the WebSocket Manager has been initialized.
    */
   init () {
-    worker.emit('logs:info', 'ws', `setting up manager`)
+    logger.info(`setting up manager`)
     return setup.getStates(this)
   },
 
