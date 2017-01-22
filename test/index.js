@@ -19,6 +19,7 @@ describe('WebSocket Server:', function () {
 
   ;['utils/broadcast',
     'utils/serialize',
+    'listeners/messages',
     'verify-client'
   ].forEach(function (cases) {
     require(`./${cases}-test`)
