@@ -22,7 +22,8 @@ describe('WebSocket Server:', function () {
     'listeners/messages',
     'listeners/rooms',
     'listeners/users',
-    'verify-client'
+    'verify-client',
+    'manager'
   ].forEach(function (cases) {
     require(`./${cases}-test`)
   })

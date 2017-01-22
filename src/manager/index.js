@@ -33,6 +33,7 @@ module.exports = {
   init () {
     logger.info(`setting up manager`)
     return setup.getStates(this)
+      .catch(logger.error)
   },
 
   /**
@@ -42,33 +43,39 @@ module.exports = {
   addUser (socket) {
     const {user} = socket.upgradeReq.notify
 
-    // When the user exists the application we need to:
-    //   > Change the user state to offline.
-    //   > Remove the WebSocket from the manager
-    socket.on('close', () => {
-      notifyStore.store.update(notifyStore.types.USERS, {
-        id: user.id,
-        replace: {
-          state: this.states.offline
-        }
-      })
-
-      this.removeUser(socket)
-    })
-
     // Change the user state to online.
-    notifyStore.store.update(notifyStore.types.USERS, {
+    return notifyStore.store.update(notifyStore.types.USERS, {
       id: user.id,
       replace: {
         state: this.states.online
       }
+    }).then(() => {
+      // When the user disconnects, turn his state to offline.
+      socket.on('close', () => {
+        this.removeUser(socket)
+
+        notifyStore.store.update(notifyStore.types.USERS, {
+          id: user.id,
+          replace: {
+            state: this.states.offline
+          }
+        })
+        .then(() => logger.info(`${user.username} signed out`))
+        .catch(logger.error)
+      })
+
+       // Include the socket in the users list.
+      this.users[user.id] = socket
+
+      // Include WebSocket connection in the rooms the user is in.
+      user.rooms.forEach(roomID => this.addUserToRoom(roomID, socket))
+
+      logger.info(`${user.username} signed in`)
+    }).catch(err => {
+      console.log(err)
+      logger.error(err)
+      socket.close()
     })
-
-    // Include the socket in the users list.
-    this.users[user.id] = socket
-
-    // Include WebSocket connection in the rooms the user is in.
-    user.rooms.forEach(roomID => this.addUserToRoom(roomID, socket))
   },
 
   /**
@@ -104,7 +111,7 @@ module.exports = {
   removeUserFromRoom (roomID, socket) {
     const room = this.rooms[roomID]
     if (room === undefined) return
-    if (room.length === 1) delete this.rooms[roomID]
+    if (room.length === 1) return delete this.rooms[roomID]
     const pos = room.indexOf(socket)
     room.splice(pos, 1)
   },
@@ -114,7 +121,6 @@ module.exports = {
    * @param  {String} roomID The room id.
    */
   clearUsersFromRoom (roomID) {
-    if (this.rooms[roomID] === undefined) return
-    this.rooms[roomID].length = 0
+    delete this.rooms[roomID]
   }
 }
