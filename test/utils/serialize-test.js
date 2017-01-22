@@ -1,7 +1,7 @@
 'use strict'
 
 const assert = require('assert')
-const serialize = require('../src/ipc-events/libs/serialize')
+const serialize = require('../../src/ipc-events/utils/serialize')
 
 describe('Record Serialization Functionality', function () {
   describe('Scenario: Serializing a record:', function () {

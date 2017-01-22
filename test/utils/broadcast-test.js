@@ -3,10 +3,10 @@
 const assert = require('assert')
 const sinon = require('sinon')
 const utils = require('notify-utils')
-const config = require('../config')
-const logger = require('../src/logger')
-const notifyStore = require('../src/store')
-const broadcast = require('../src/ipc-events/libs/broadcast')
+const config = require('../../config')
+const logger = require('../../src/logger')
+const notifyStore = require('../../src/store')
+const broadcast = require('../../src/ipc-events/utils/broadcast')
 
 describe('Broadcast Functionality', function () {
   describe('Sending a payload originating from another user:', function () {

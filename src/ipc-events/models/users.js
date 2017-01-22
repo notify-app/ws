@@ -1,14 +1,11 @@
 'use strict'
 
-const serialize = require('../libs/serialize')
-const broadcast = require('../libs/broadcast')
-const types = require('../libs/types')
-
+const utils = require('../utils')
 const attributes = ['username', 'image', 'bot']
 const relationships = [
-  { key: 'rooms', type: types.ROOMS },
-  { key: 'state', type: types.STATES },
-  { key: 'messages', type: types.MESSAGES }
+  { key: 'rooms', type: utils.types.ROOMS },
+  { key: 'state', type: utils.types.STATES },
+  { key: 'messages', type: utils.types.MESSAGES }
 ]
 
 module.exports = (manager) => {
@@ -21,10 +18,11 @@ module.exports = (manager) => {
     syncManager(record)
     const userIDs = Object.keys(manager.users)
     if (userIDs.length === 0) return
-    const payload = serialize(record, types.USERS, attributes, relationships)
+    const payload = utils.serialize(record, utils.types.USERS, attributes,
+      relationships)
     userIDs.forEach(userID => {
       const user = manager.users[userID]
-      broadcast(user, payload, context)
+      utils.broadcast(user, payload, context)
     })
   }
 
