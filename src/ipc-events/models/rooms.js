@@ -28,6 +28,7 @@ module.exports = (manager) => {
    * @param  {Object} record Created/updated room.
    */
   function syncManager (record) {
+    manager.clearUsersFromRoom(record.id)
     record.users.forEach(userID => {
       const user = manager.users[userID]
       if (user === undefined) return

@@ -1,8 +1,8 @@
 'use strict'
 
-const notifyStore = require('../store')
 const setup = require('./setup')
 const logger = require('../logger')
+const notifyStore = require('../store')
 
 module.exports = {
   /**
@@ -107,5 +107,14 @@ module.exports = {
     if (room.length === 1) delete this.rooms[roomID]
     const pos = room.indexOf(socket)
     room.splice(pos, 1)
+  },
+
+  /**
+   * Empties a room.
+   * @param  {String} roomID The room id.
+   */
+  clearUsersFromRoom (roomID) {
+    if (this.rooms[roomID] === undefined) return
+    this.rooms[roomID].length = 0
   }
 }
