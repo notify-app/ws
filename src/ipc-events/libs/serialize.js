@@ -10,6 +10,7 @@
  * @return {String}               Serialized payload.
  */
 module.exports = (record, type, attributes = [], relationships = []) => {
+  // Create basic JSONAPI Structure.
   const payload = {
     data: {
       id: record.id,
@@ -19,10 +20,12 @@ module.exports = (record, type, attributes = [], relationships = []) => {
     }
   }
 
+  // Include Attributes.
   attributes.forEach(field => {
     payload.data.attributes[field] = record[field]
   })
 
+  // Include one-to-one & one-to-many relationships.
   relationships.forEach(field => {
     const value = record[field.key]
     const rel = payload.data.relationships[field.key] = {}

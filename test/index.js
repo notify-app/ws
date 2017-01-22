@@ -17,7 +17,10 @@ describe('WebSocket Server:', function () {
     mockr.stop('ipc-emitter')
   })
 
-  ;['broadcast', 'verify-client'].forEach(function (cases) {
+  ;['broadcast',
+    'verify-client',
+    'serialize'
+  ].forEach(function (cases) {
     require(`./${cases}-test`)
   })
 })
