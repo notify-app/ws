@@ -33,7 +33,7 @@ module.exports = {
   init () {
     logger.info(`setting up manager`)
     return setup.getStates(this)
-      .catch(logger.error)
+      .catch((err) => logger.error(err))
   },
 
   /**
