@@ -11,7 +11,7 @@ const logger = require('../../logger')
  * the WebSocket server. The payload is only sent to specified user if:
  *   1. The payload has not originated from the user.
  *   2. The token of the reciever the payload is still valid.
- * @param  {Object} socket          The socket object of the reciever.
+ * @param  {Object} user            The socket object of the reciever.
  * @param  {String} payload         The payload to be sent.
  * @param  {Object} options.request FortuneJS context request related to the
  *                                  change.
@@ -49,7 +49,7 @@ module.exports = (user, payload, {request}) => {
 /**
  * sendPayload is used to validate the reciever token, and if valid it sends him
  * the payload
- * @param  {Object} socket          The socket object of the reciever.
+ * @param  {Object} user            The socket object of the reciever.
  * @param  {String} payload         The payload to be sent.
  * @return {Promise}                Resolved promise once either the payload has
  *                                  been sent, or the reciever has been

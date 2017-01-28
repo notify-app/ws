@@ -201,6 +201,16 @@ describe('Verify Client functionality', function () {
         notifyStore.store.find.restore()
       })
 
+      it('should request the owner of the access token', function () {
+        assert.strictEqual(utils.getUserByToken.calledOnce, true)
+        assert.strictEqual(utils.getUserByToken.getCall(0).args[0], token)
+        assert.deepStrictEqual(utils.getUserByToken.getCall(0).args[1], {
+          origin,
+          notifyStore,
+          maxAge: config.session.maxAge
+        })
+      })
+
       it('should accept the connection', function () {
         assert.strictEqual(cb.calledOnce, true)
         assert.deepStrictEqual(cb.getCall(0).args, [true])

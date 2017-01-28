@@ -65,6 +65,15 @@ describe('Broadcast Functionality', function () {
             utils.validateToken.restore()
           })
 
+          it('should validate the reciever token', function () {
+            assert.strictEqual(utils.validateToken.calledOnce, true)
+            assert.strictEqual(utils.validateToken.getCall(0).args[0],
+              userToken)
+            assert.deepStrictEqual(utils.validateToken.getCall(0).args[1], {
+              maxAge: config.session.maxAge
+            })
+          })
+
           it('should send the payload', function () {
             assert.strictEqual(user.send.calledOnce, true)
           })
