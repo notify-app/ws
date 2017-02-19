@@ -4,7 +4,8 @@ const utils = require('../utils')
 const attributes = ['content', 'deleted']
 const relationships = [
   { key: 'user', type: utils.types.USERS },
-  { key: 'room', type: utils.types.ROOMS }
+  { key: 'room', type: utils.types.ROOMS },
+  { key: 'unread', type: utils.types.USERS }
 ]
 
 module.exports = (manager) => {
