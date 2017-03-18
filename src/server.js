@@ -13,7 +13,8 @@ manager.init()
     // Create WebSocket server.
     const server = new Server({
       verifyClient,
-      port: config.port
+      port: config.port,
+      clientTracking: false
     })
 
     // When a user successfully connects, add him to the WebSocket manager.
