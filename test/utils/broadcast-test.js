@@ -177,7 +177,7 @@ describe('Broadcast Functionality', function () {
             }
 
             sinon.stub(utils, 'validateToken')
-              .returns(Promise.reject(userToken))
+              .returns(Promise.reject(new Error('invalid token')))
 
             sinon.stub(notifyStore.store, 'delete')
               .returns(Promise.resolve())
@@ -259,7 +259,7 @@ describe('Broadcast Functionality', function () {
             }
 
             sinon.stub(utils, 'validateToken')
-              .returns(Promise.reject(userToken))
+              .returns(Promise.reject(new Error('invalid token')))
 
             sinon.stub(notifyStore.store, 'delete')
               .returns(Promise.resolve())

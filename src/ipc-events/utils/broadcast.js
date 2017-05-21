@@ -63,8 +63,8 @@ function sendPayload (user, payload) {
     // If valid send payload.
     .then(() => user.send(payload))
     // If not valid delete token from db and disconnect reciever.
-    .catch(token => {
-      return notifyStore.store.delete(notifyStore.types.TOKENS, token.id)
+    .catch(() => {
+      return notifyStore.store.delete(notifyStore.types.TOKENS, userToken.id)
         .then(() => user.close())
     })
 }
