@@ -135,9 +135,9 @@ describe('Verify Client functionality', function () {
       it('should request the owner of the access token', function () {
         assert.strictEqual(utils.getUserByToken.calledOnce, true)
         assert.strictEqual(utils.getUserByToken.getCall(0).args[0], token)
-        assert.deepStrictEqual(utils.getUserByToken.getCall(0).args[1], {
+        assert.strictEqual(utils.getUserByToken.getCall(0).args[1], notifyStore)
+        assert.deepStrictEqual(utils.getUserByToken.getCall(0).args[2], {
           origin,
-          notifyStore,
           maxAge: config.session.maxAge
         })
       })
@@ -177,12 +177,7 @@ describe('Verify Client functionality', function () {
           }
         }
 
-        sinon.stub(utils, 'getUserByToken').returns(Promise.resolve({
-          count: 1,
-          payload: {
-            records: [user]
-          }
-        }))
+        sinon.stub(utils, 'getUserByToken').returns(Promise.resolve(user))
 
         sinon.stub(notifyStore.store, 'find').returns({
           payload: {
@@ -204,9 +199,9 @@ describe('Verify Client functionality', function () {
       it('should request the owner of the access token', function () {
         assert.strictEqual(utils.getUserByToken.calledOnce, true)
         assert.strictEqual(utils.getUserByToken.getCall(0).args[0], token)
-        assert.deepStrictEqual(utils.getUserByToken.getCall(0).args[1], {
+        assert.strictEqual(utils.getUserByToken.getCall(0).args[1], notifyStore)
+        assert.deepStrictEqual(utils.getUserByToken.getCall(0).args[2], {
           origin,
-          notifyStore,
           maxAge: config.session.maxAge
         })
       })

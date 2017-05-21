@@ -16,11 +16,8 @@ const notifyStore = require('./store')
 module.exports = (info, cb) => {
   return getToken(info.req.headers.cookie)
     .then(getUser.bind(null, info.origin))
-    .then(([token, {payload}]) => {
-      info.req.notify = {
-        token,
-        user: payload.records[0]
-      }
+    .then(([token, user]) => {
+      info.req.notify = { token, user }
       cb(true)
     })
     .catch(() => cb(false, 401, 'Unauthorized'))
@@ -60,12 +57,11 @@ function getToken (cookieString) {
 function getUser (origin, token) {
   const opts = {
     origin,
-    notifyStore,
     maxAge: config.session.maxAge
   }
 
   return Promise.all([
     token,
-    utils.getUserByToken(token, opts)
+    utils.getUserByToken(token, notifyStore, opts)
   ])
 }
